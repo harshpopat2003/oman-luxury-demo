@@ -1,0 +1,545 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/* ---------------------------------------------------------------
+   OMANLUXURY — design tokens
+
+   Art direction: "Alabaster & Ember".
+
+   The category default for an oud house is black and gold. The
+   brand's own set photography isn't that — their campaign stills sit
+   bottles of amber liquid on warm linen and sand, next to brushed
+   brass. So the site takes its ground from the photographs rather
+   than from the category: a warm alabaster page, punctuated by three
+   full-bleed dark rooms where the cinematic stills live.
+
+   That rhythm matters practically too. Every product shot the house
+   has is cut out on white — on a black page each one would sit in a
+   glowing box. On linen they composite invisibly.
+
+   Colour otherwise comes only from the liquid (amber), the two
+   Omani raw materials (Jabal Akhdar rose, Dhofar luban) and brass.
+----------------------------------------------------------------*/
+@theme {
+  /* --- light ground: the gallery ---------------------------- */
+  --color-linen: #f4eee3;
+  --color-parchment: #ece3d4;
+  --color-sand: #ddd0ba;
+  --color-sand-deep: #c4b299;
+
+  /* --- dark rooms: where the editorials live ---------------- */
+  --color-oudh: #17110b;
+  --color-oudh-soft: #241a10;
+  --color-oudh-lift: #33261a;
+
+  /* --- text ------------------------------------------------- */
+  --color-ink: #241b12;
+  --color-ink-soft: #6d6052;
+  --color-ink-faint: #9c8f7e;
+
+  /* --- the liquid ------------------------------------------- */
+  --color-amber-100: #f7e6c2;
+  --color-amber-200: #f0cf8d;
+  --color-amber-300: #e6b45c;
+  --color-amber-400: #d29a35;
+  --color-amber-500: #b07d22;
+  --color-amber-600: #8a5f16;
+
+  --color-brass: #ab8a56;
+
+  /* --- the two raw materials -------------------------------- */
+  --color-rose: #b56b70;
+  --color-rose-soft: #d9a3a4;
+  --color-luban: #94a189;
+  --color-luban-soft: #bcc4b0;
+
+  --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-body: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+
+  /* Curves from the animate skill's table. Never hand-rolled. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Lenis owns the scroll; native smoothing tears against it. */
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  html,
+  body {
+    /* `clip`, not `hidden` — hidden turns the root into a scroll
+       container and kills every pinned section on the page. */
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-linen);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-amber-300);
+    color: var(--color-oudh);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-amber-500);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Screen-reader-only, for the skip link and axis descriptions. */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@layer components {
+  /* ---- Type ramp -------------------------------------------------
+
+     Apple's typography rule: tracking is size-specific, and leading
+     runs inversely to size. Cormorant is a high-contrast Garamond —
+     at display sizes it wants to be set tight and light, at small
+     sizes it falls apart, so everything under ~20px is Jost instead.
+  -------------------------------------------------------------------*/
+
+  .t-display {
+    font-family: var(--font-display);
+    font-size: clamp(3.4rem, 12vw, 11rem);
+    font-weight: 300;
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+  }
+
+  .t-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+  }
+
+  .t-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.4vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+  }
+
+  .t-h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+
+  /* The serif italic is the house's accent voice. Rationed. */
+  .t-italic {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    /* Cormorant's italic reads optically smaller than its roman at the
+       same size — the bump puts them back on the same line. */
+    font-size: 1.04em;
+    letter-spacing: -0.01em;
+  }
+
+  .t-lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.62;
+    letter-spacing: 0.004em;
+    color: var(--color-ink-soft);
+  }
+
+  .t-body {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.72;
+    letter-spacing: 0.006em;
+    color: var(--color-ink-soft);
+  }
+
+  /* The perfume-counter label: small, wide, uppercase. Positive
+     tracking because small text needs it to stay legible. */
+  .t-label {
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+  }
+
+  .t-label-tight {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Cormorant ships old-style figures by default, which sets "17" as
+     "I7" and "550" as "55O" — charming in running prose, unreadable
+     in a statistic. Every number on this site is a fact someone is
+     meant to read, so figures are forced lining and tabular: lining
+     so they sit on the baseline at cap height, tabular so a counting
+     number doesn't reflow its own width as it ticks. */
+  .t-num {
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: "lnum" 1, "tnum" 1;
+  }
+
+  .t-ar {
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0;
+    opacity: 0.5;
+  }
+
+  /* ---- Dark rooms ------------------------------------------------ */
+
+  .room-dark {
+    background-color: var(--color-oudh);
+    color: var(--color-parchment);
+  }
+
+  .room-dark .t-lead,
+  .room-dark .t-body {
+    color: color-mix(in oklab, var(--color-parchment) 62%, transparent);
+  }
+
+  .room-dark .t-label {
+    color: color-mix(in oklab, var(--color-amber-200) 55%, transparent);
+  }
+
+  .room-dark .rule {
+    background: color-mix(in oklab, var(--color-parchment) 16%, transparent);
+  }
+
+  /* ---- Structure ------------------------------------------------- */
+
+  .shell {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4.5rem);
+  }
+
+  .shell-tight {
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4.5rem);
+  }
+
+  .band {
+    padding-block: clamp(5.5rem, 13vw, 11rem);
+  }
+
+  /* A hairline, not a border — 1px at these values reads as a seam. */
+  .rule {
+    height: 1px;
+    width: 100%;
+    background: color-mix(in oklab, var(--color-ink) 13%, transparent);
+  }
+
+  /* ---- 3D --------------------------------------------------------
+
+     The perspective lives on the shared parent so sibling layers
+     resolve to one vanishing point. Per-element perspective gives
+     each layer its own camera, which is exactly what makes cheap 3D
+     read as stacked cards instead of a room.
+  -------------------------------------------------------------------*/
+
+  .scene-3d {
+    perspective: 1400px;
+    perspective-origin: 50% 45%;
+    transform-style: preserve-3d;
+  }
+
+  .scene-near {
+    perspective: 900px;
+  }
+
+  .layer-3d {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    /* Kills the sub-pixel shimmer Safari gets on transformed text. */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mote {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      var(--color-amber-200) 0%,
+      color-mix(in oklab, var(--color-amber-300) 40%, transparent) 45%,
+      transparent 70%
+    );
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  /* ---- Materials -------------------------------------------------
+
+     Apple's rule: bigger surfaces read as thicker. The nav is a wide
+     surface, so it takes a strong blur and a bright top edge — light
+     catching the leading edge of real glass.
+  -------------------------------------------------------------------*/
+
+  .glass {
+    background: color-mix(in oklab, var(--color-linen) 72%, transparent);
+    backdrop-filter: blur(22px) saturate(165%);
+    -webkit-backdrop-filter: blur(22px) saturate(165%);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent);
+  }
+
+  .glass-dark {
+    background: color-mix(in oklab, var(--color-oudh) 62%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid color-mix(in oklab, var(--color-amber-200) 14%, transparent);
+  }
+
+  /* Paper tooth. Two very low-alpha noise fields at different scales
+     stop large flat areas of linen from banding on wide gamut
+     displays, and give the ground something to catch light on. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+  }
+
+  /* ---- Controls --------------------------------------------------
+
+     Feedback lives on the press, and it's instant — :active fires on
+     pointer-down, which is the moment the user is watching.
+  -------------------------------------------------------------------*/
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.9rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+    transition:
+      background-color 220ms var(--ease-out),
+      color 220ms var(--ease-out),
+      border-color 220ms var(--ease-out),
+      transform 130ms var(--ease-out);
+  }
+
+  .btn:active {
+    transform: scale(0.975);
+  }
+
+  .btn-solid {
+    background: var(--color-oudh);
+    color: var(--color-linen);
+    border: 1px solid var(--color-oudh);
+  }
+
+  .btn-solid:hover {
+    background: var(--color-amber-500);
+    border-color: var(--color-amber-500);
+    color: var(--color-oudh);
+  }
+
+  /* The solid pill, for when the bar is floating over a dark room. */
+  .btn-invert {
+    background: var(--color-amber-200);
+    color: var(--color-oudh);
+    border: 1px solid var(--color-amber-200);
+  }
+
+  .btn-invert:hover {
+    background: var(--color-linen);
+    border-color: var(--color-linen);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid color-mix(in oklab, var(--color-ink) 26%, transparent);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-ink);
+    background: color-mix(in oklab, var(--color-ink) 5%, transparent);
+  }
+
+  .room-dark .btn-ghost {
+    color: var(--color-parchment);
+    border-color: color-mix(in oklab, var(--color-parchment) 30%, transparent);
+  }
+
+  .room-dark .btn-ghost:hover {
+    border-color: var(--color-amber-300);
+    color: var(--color-amber-200);
+    background: color-mix(in oklab, var(--color-amber-300) 8%, transparent);
+  }
+
+  /* Underline that draws from the left on hover, from the animate
+     skill's recipe — transform-only, so it never triggers layout. */
+  .link-draw {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-draw::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 260ms var(--ease-out);
+  }
+
+  .link-draw:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* ---- Family colour keys ---------------------------------------- */
+
+  .key-Citrus {
+    --key: var(--color-amber-200);
+  }
+  .key-Green {
+    --key: var(--color-luban);
+  }
+  .key-Floral {
+    --key: var(--color-rose-soft);
+  }
+  .key-Rose {
+    --key: var(--color-rose);
+  }
+  .key-Amber {
+    --key: var(--color-amber-400);
+  }
+  .key-Oud {
+    --key: var(--color-amber-600);
+  }
+  .key-Incense {
+    --key: var(--color-brass);
+  }
+}
+
+@layer utilities {
+  .edge-fade-b {
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+
+  .edge-fade-x {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* Product cutouts are shot on white. Multiply drops the white and
+     leaves the bottle and its cast shadow sitting on the linen. */
+  .cutout {
+    mix-blend-mode: multiply;
+  }
+}
+
+/* ---- Accessibility -----------------------------------------------
+
+   Reduced motion doesn't mean no feedback — it means the gentler,
+   non-vestibular equivalent. Transforms and parallax go; opacity and
+   colour stay, because they still carry meaning.
+--------------------------------------------------------------------*/
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--color-linen);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .glass-dark {
+    background: var(--color-oudh);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .t-body,
+  .t-lead {
+    color: var(--color-ink);
+  }
+
+  .rule {
+    background: var(--color-ink);
+  }
+}
