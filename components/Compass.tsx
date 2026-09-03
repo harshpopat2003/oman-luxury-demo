@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { fragrances, house } from "@/lib/content";
@@ -293,7 +294,7 @@ export default function Compass() {
                 }`}
               >
                 <Image
-                  src={f.image}
+                  src={asset(f.image)}
                   alt=""
                   aria-hidden
                   width={400}

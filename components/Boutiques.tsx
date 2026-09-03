@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { boutiques, giftSets, house } from "@/lib/content";
@@ -63,7 +64,7 @@ export default function Boutiques() {
             className="relative min-h-[22rem] overflow-hidden bg-[color:var(--color-parchment)]"
           >
             <Image
-              src={giftSets[0].image}
+              src={asset(giftSets[0].image)}
               alt="The Explorer Collection — all seventeen fragrances at 3ml"
               fill
               sizes="(max-width: 1024px) 100vw, 44vw"
@@ -112,7 +113,7 @@ export default function Boutiques() {
             >
               <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-sm">
                 <Image
-                  src={g.image}
+                  src={asset(g.image)}
                   alt={g.name}
                   fill
                   sizes="112px"

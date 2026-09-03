@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { house } from "@/lib/content";
@@ -101,7 +102,7 @@ export default function Hero() {
         {/* --- the photograph --- */}
         <div data-still className="layer-3d absolute inset-0" data-depth="0.22" data-z="-160">
           <Image
-            src="/scenes/hero.webp"
+            src={asset("/scenes/hero.webp")}
             alt="Hommage 1744 standing on agarwood, backlit by a golden disc"
             fill
             preload

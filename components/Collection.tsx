@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { fragrances, type Tier } from "@/lib/content";
@@ -154,7 +155,7 @@ export default function Collection() {
             >
               <div className="relative overflow-hidden rounded-sm bg-[color:var(--color-parchment)]">
                 <Image
-                  src={f.image}
+                  src={asset(f.image)}
                   alt={`${f.name} eau de parfum, 100ml`}
                   width={1100}
                   height={1100}

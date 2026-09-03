@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { fragrances, noses } from "@/lib/content";
@@ -170,7 +171,7 @@ export default function Noses() {
                     className="flex items-center gap-4 rounded-sm bg-[color:var(--color-linen)] p-4"
                   >
                     <Image
-                      src={f.image}
+                      src={asset(f.image)}
                       alt=""
                       aria-hidden
                       width={300}

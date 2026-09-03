@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { arcStages, fragrances, byId, type Fragrance } from "@/lib/content";
@@ -294,7 +295,7 @@ export default function Arc() {
           className="layer-3d pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <Image
-            src={active.image}
+            src={asset(active.image)}
             alt=""
             aria-hidden
             width={1100}

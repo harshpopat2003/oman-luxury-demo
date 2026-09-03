@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import Wordmark from "./Wordmark";
@@ -143,7 +144,7 @@ export default function Header() {
               aria-label="OMANLUXURY — back to top"
             >
               <Image
-                src="/brand/logo.png"
+                src={asset("/brand/logo.png")}
                 alt=""
                 aria-hidden
                 width={160}
@@ -257,7 +258,7 @@ function MobileSheet({ open, onClose }: { open: boolean; onClose: () => void }) 
       <div className="shell flex h-[84px] items-center justify-between">
         <span className="flex items-center gap-3.5">
           <Image
-            src="/brand/logo.png"
+            src={asset("/brand/logo.png")}
             alt=""
             aria-hidden
             width={160}

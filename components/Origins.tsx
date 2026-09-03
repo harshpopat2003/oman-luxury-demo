@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { terroir } from "@/lib/content";
@@ -110,7 +111,7 @@ export default function Origins() {
             className="relative flex min-h-[88svh] items-end overflow-hidden"
           >
             <Image
-              src={t.image}
+              src={asset(t.image)}
               alt={`${t.material} — ${t.place}`}
               fill
               sizes="100vw"

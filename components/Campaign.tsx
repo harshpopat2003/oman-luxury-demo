@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, reducedMotion, revealLines } from "@/lib/motion";
@@ -215,7 +216,7 @@ function FrameBlock({ frame }: { frame: Frame }) {
       <div className={frame.lift ? "lg:translate-y-[var(--lift)]" : ""}>
         <div data-media className={`relative w-full overflow-hidden rounded-sm ${frame.ratio}`}>
           <Image
-            src={frame.src}
+            src={asset(frame.src)}
             alt={frame.alt}
             fill
             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 42vw"
@@ -238,7 +239,7 @@ function FullFrame({ frame }: { frame: Frame }) {
     <figure data-frame data-drift={frame.drift} className="relative">
       <div data-media className={`relative w-full overflow-hidden ${frame.ratio}`}>
         <Image
-          src={frame.src}
+          src={asset(frame.src)}
           alt={frame.alt}
           fill
           sizes="100vw"
