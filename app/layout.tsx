@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost, Parisienne } from "next/font/google";
 import { house, fragrances } from "@/lib/content";
 import "./globals.css";
+import DemoNotice from "@/components/DemoNotice";
 
 /* Cormorant Garamond is a high-contrast Garamond revival — the thin
    strokes go very thin at display size, which is exactly the quality
@@ -95,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
+        <DemoNotice brand="OMANLUXURY" />
         {children}
       </body>
     </html>
